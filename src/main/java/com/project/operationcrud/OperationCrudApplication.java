@@ -1,4 +1,4 @@
-package com.project.operationcrud.exceptions;
+package com.project.operationcrud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
