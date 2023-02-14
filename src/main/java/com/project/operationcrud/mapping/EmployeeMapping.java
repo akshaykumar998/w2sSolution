@@ -8,6 +8,7 @@ public class EmployeeMapping {
     public static Employee mapToEntity(RequestEmployeeDto requestEmployeeDto){
         return Employee.builder()
                 .name(requestEmployeeDto.getName())
+                .department(requestEmployeeDto.getDepartment())
                 .email(requestEmployeeDto.getEmail())
                 .mobile(requestEmployeeDto.getMobile())
                 .build();
@@ -17,8 +18,10 @@ public class EmployeeMapping {
         return ResponseEmployeeDto.builder()
                 .id(employee.getId())
                 .name(employee.getName())
+                .department(employee.getDepartment())
                 .email(employee.getEmail())
                 .mobile(employee.getMobile())
+                .userId(employee.getUserId())
                 .build();
     }
 }

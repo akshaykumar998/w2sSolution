@@ -27,16 +27,11 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public ResponseEmployeeDto createEmployee(RequestEmployeeDto requestEmployeeDto) {
+    public ResponseEmployeeDto createEmployee(RequestEmployeeDto requestEmployeeDto, String currentPrincipalName) {
         Employee employee = EmployeeMapping.mapToEntity(requestEmployeeDto);
+        employee.setUserId(currentPrincipalName);
         Employee save = employeRepo.save(employee);
         return EmployeeMapping.maptoDto(save);
-    }
-
-    @Override
-    public ResponseEmployeeDto findEmpById(long id) {
-        Employee employee = employeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee", "id", id));
-        return EmployeeMapping.maptoDto(employee);
     }
 
     @Override
@@ -49,12 +44,19 @@ public class EmployeeServiceImpl implements EmployeeService{
     public ResponseEmployeeDto updateEmpById(RequestEmployeeDto requestEmployeeDto, Long id) {
         Employee employee = employeRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee", "id", id));
         employee.setName(requestEmployeeDto.getName());
+        employee.setDepartment(requestEmployeeDto.getDepartment());
         employee.setEmail(requestEmployeeDto.getEmail());
         employee.setMobile(requestEmployeeDto.getMobile());
 
         Employee updatedEmployee= employeRepo.save(employee);
 
         return EmployeeMapping.maptoDto(updatedEmployee);
+    }
+
+    @Override
+    public List<ResponseEmployeeDto> findEmpByUserId(String userId) {
+        List<Employee> employee = employeRepo.findByUserId(userId);
+        return employee.stream().map(EmployeeMapping :: maptoDto).collect(Collectors.toList());
     }
 
 }

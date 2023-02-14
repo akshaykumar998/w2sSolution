@@ -17,8 +17,12 @@ public class Employee {
     private Long id;
     @Column(name = "e_name", nullable = false)
     private String name;
+    @Column(name = "e_dept", nullable = false, unique = true)
+    private String department;
     @Column(name = "e_email", nullable = false, unique = true)
     private String email;
     @Column(name = "e_mobile", nullable = false, unique = true)
     private String mobile;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 }

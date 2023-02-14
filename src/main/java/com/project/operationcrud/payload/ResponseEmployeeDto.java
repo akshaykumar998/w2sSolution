@@ -8,6 +8,8 @@ import lombok.Data;
 public class ResponseEmployeeDto {
     private Long id;
     private String name;
+    private String department;
     private String email;
     private String mobile;
+    private String userId;
 }
